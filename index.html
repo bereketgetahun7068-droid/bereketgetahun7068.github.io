@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawi Shop | Simple Style & Great Clothes</title>
+    <meta name="description" content="A great clothing store offering high-quality clothes and accessories for the family. Based in Bedele, Oromia, Ethiopia.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            obsidian: '#0A0A0A',
+                            alabaster: '#FAFAFA',
+                            gold: '#D4AF37',
+                            charcoal: '#1E1E1E',
+                            slate: '#7F7F7F',
+                            lightgray: '#F9F9F9',
+                            border: '#E5E5E5'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'hover': '0px 4px 15px rgba(0, 0, 0, 0.05)',
+                        'modal': '0px 10px 40px rgba(0, 0, 0, 0.1)'
+                    },
+                    transitionTimingFunction: {
+                        'lux': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Global Styles */
+        body {
+            background-color: #FAFAFA;
+            color: #1E1E1E;
+            overflow-x: hidden;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .florentine-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #7F7F7F;
+            padding: 12px 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1E1E1E;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            outline: none;
+        }
+        .florentine-input:focus {
+            border-bottom: 1px solid #D4AF37;
+            box-shadow: 0 1px 0 0 #D4AF37;
+        }
+        .florentine-input::placeholder {
+            color: #7F7F7F;
+            font-weight: 300;
+        }
+
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom-container img {
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .img-zoom-container:hover img {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        .hotspot {
+            animation: pulse-ring 2s infinite;
+        }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Category dynamic grid animations */
+        .product-grid-transition {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-brand-charcoal selection:bg-brand-gold selection:text-white">
+
+    <!-- Announcement Bar -->
+    <div class="bg-brand-obsidian text-white py-2 px-4 text-xs tracking-wider flex justify-between items-center z-50 relative">
+        <div class="hidden md:flex items-center gap-4 text-gray-300">
+            <span class="flex items-center gap-1 hover:text-brand-gold cursor-pointer transition-colors"><i class="ph ph-phone"></i> +251984839329</span>
+            <span class="flex items-center gap-1 hover:text-brand-gold cursor-pointer transition-colors"><i class="ph ph-whatsapp-logo"></i> WhatsApp</span>
+        </div>
+        <div class="text-center w-full md:w-auto font-medium">
+            FREE EXPRESS DELIVERY ON ALL ORDERS
+        </div>
+        <div class="hidden md:flex items-center gap-4 text-gray-300">
+            <select class="bg-transparent border-none outline-none cursor-pointer hover:text-white text-xs">
+                <option value="etb" class="text-black">ETB</option>
+            </select>
+            <select class="bg-transparent border-none outline-none cursor-pointer hover:text-white text-xs">
+                <option value="en" class="text-black">EN</option>
+                <option value="am" class="text-black">AM</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Sticky Header -->
+    <header id="main-header" class="sticky top-0 w-full bg-white/90 backdrop-blur-md border-b border-brand-border z-40 transition-all duration-300">
+        <div class="max-w-[1440px] mx-auto px-6 h-20 flex justify-between items-center">
+            
+            <button onclick="toggleMobileMenu()" class="md:hidden text-brand-obsidian text-2xl">
+                <i class="ph ph-list"></i>
+            </button>
+
+            <div class="w-1/4 flex justify-center md:justify-start">
+                <a href="#" class="font-serif text-3xl font-bold tracking-widest text-brand-obsidian">HAWI</a>
+            </div>
+
+            <nav class="hidden md:flex justify-center gap-8 w-1/2">
+                <a href="#featured-products-section" onclick="selectCollectionTab('women')" class="text-sm font-medium hover:text-brand-gold transition-colors">Women's Collection</a>
+                <a href="#featured-products-section" onclick="selectCollectionTab('men')" class="text-sm font-medium hover:text-brand-gold transition-colors">Men's Collection</a>
+                <a href="#featured-products-section" onclick="selectCollectionTab('kids')" class="text-sm font-medium hover:text-brand-gold transition-colors">Kids' Clothing</a>
+                <a href="#featured-products-section" onclick="selectCollectionTab('shoes')" class="text-sm font-medium hover:text-brand-gold transition-colors">Shoes</a>
+                <a href="#about-us-section" class="text-sm font-medium hover:text-brand-gold transition-colors">About Us</a>
+            </nav>
+
+            <div class="w-1/4 flex justify-end gap-5 text-xl text-brand-obsidian items-center">
+                <button class="hover:text-brand-gold transition-colors"><i class="ph ph-magnifying-glass"></i></button>
+                <button class="hover:text-brand-gold transition-colors hidden sm:block"><i class="ph ph-heart"></i></button>
+                <button class="hover:text-brand-gold transition-colors relative" onclick="toggleCart(true)">
+                    <i class="ph ph-tote"></i>
+                    <span id="cart-badge-count" class="absolute -top-1 -right-2 bg-red-600 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">1</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/40" onclick="toggleMobileMenu()"></div>
+        <!-- Left Side Drawer Content -->
+        <div id="mobile-menu-panel" class="absolute top-0 left-0 h-full w-full max-w-xs bg-white shadow-modal transform -translate-x-full transition-transform duration-500 ease-lux flex flex-col p-6 pointer-events-auto">
+            <div class="flex justify-between items-center mb-8 pb-4 border-b border-brand-border">
+                <span class="font-serif text-2xl font-bold tracking-widest text-brand-obsidian">HAWI</span>
+                <button onclick="toggleMobileMenu()" class="text-2xl hover:text-brand-gold"><i class="ph ph-x"></i></button>
+            </div>
+            <nav class="flex flex-col gap-6 text-lg font-medium text-brand-charcoal">
+                <a href="#featured-products-section" onclick="selectCollectionTab('women'); toggleMobileMenu();" class="hover:text-brand-gold transition-colors">Women's Collection</a>
+                <a href="#featured-products-section" onclick="selectCollectionTab('men'); toggleMobileMenu();" class="hover:text-brand-gold transition-colors">Men's Collection</a>
+                <a href="#featured-products-section" onclick="selectCollectionTab('kids'); toggleMobileMenu();" class="hover:text-brand-gold transition-colors">Kids' Clothing</a>
+                <a href="#featured-products-section" onclick="selectCollectionTab('shoes'); toggleMobileMenu();" class="hover:text-brand-gold transition-colors">Shoes</a>
+                <a href="#about-us-section" onclick="toggleMobileMenu();" class="hover:text-brand-gold transition-colors">About Us</a>
+            </nav>
+            <div class="mt-auto pt-6 border-t border-brand-border flex flex-col gap-4 text-xs text-brand-slate">
+                <span class="flex items-center gap-2"><i class="ph ph-phone"></i> +251984839329</span>
+                <span class="flex items-center gap-2"><i class="ph ph-clock"></i> Mon - Sat: 2:00 AM - 8:00 PM</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div id="cart-backdrop" class="absolute inset-0 bg-black/40 hidden" onclick="toggleCart(false)"></div>
+        
+        <!-- Drawer Content -->
+        <div id="cart-panel" class="absolute top-0 right-0 h-full w-full max-w-md bg-white shadow-modal transform translate-x-full transition-transform duration-500 ease-lux flex flex-col pointer-events-auto">
+            <div class="p-6 border-b border-brand-border flex justify-between items-center">
+                <h2 class="font-serif text-2xl">Your Cart (<span id="cart-count">1</span>)</h2>
+                <button onclick="toggleCart(false)" class="text-xl hover:text-brand-gold"><i class="ph ph-x"></i></button>
+            </div>
+            
+            <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+                <!-- Dynamically populated via JS -->
+            </div>
+            
+            <div class="p-6 border-t border-brand-border bg-brand-lightgray">
+                <p class="text-xs text-brand-slate mb-4">Click "Buy Now" to finish order details with our team over Telegram.</p>
+                <button onclick="handleCheckout()" class="w-full bg-brand-obsidian text-white py-4 font-medium hover:bg-gray-800 transition-colors uppercase tracking-wider text-sm">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative w-full h-[calc(100vh-80px)] md:h-[calc(100vh-120px)] flex flex-col md:flex-row max-w-[1440px] mx-auto">
+        <div class="w-full md:w-[45%] h-[50vh] md:h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 order-2 md:order-1 bg-brand-alabaster z-10">
+            <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl leading-none text-brand-obsidian mb-6 reveal-up">
+                Simple Style.<br>Modern Look.
+            </h1>
+            <p class="text-brand-charcoal text-base md:text-lg mb-10 max-w-md font-light reveal-up" style="transition-delay: 150ms;">
+                Find the best clothes for your everyday life. Great quality and style designed in Oromia, Ethiopia.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 reveal-up" style="transition-delay: 300ms;">
+                <a href="#featured-products-section" class="bg-brand-obsidian text-white text-center py-4 px-8 font-medium hover:bg-gray-800 transition-colors">Shop New Clothes</a>
+                <a href="#category-section" class="border border-brand-obsidian text-brand-obsidian text-center py-4 px-8 font-medium hover:bg-brand-obsidian hover:text-white transition-colors">See All Items</a>
+            </div>
+        </div>
+        
+        <div class="w-full md:w-[55%] h-[50vh] md:h-full order-1 md:order-2 overflow-hidden relative">
+            <img src="https://i.pinimg.com/736x/b4/b3/aa/b4b3aa3449801258f70a6d274c278359.jpg" alt="Fashion portrait" class="w-full h-full object-cover object-top scale-100 hover:scale-105 transition-transform duration-[2s] ease-out">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:hidden"></div>
+        </div>
+    </section>
+
+    <!-- Department Section -->
+    <section id="category-section" class="py-20 px-4 md:px-8 max-w-[1440px] mx-auto reveal-up">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-auto md:h-[700px]">
+            
+            <!-- Women -->
+            <a href="#featured-products-section" onclick="selectCollectionTab('women')" class="relative group overflow-hidden h-[400px] md:h-full block rounded">
+                <img src="https://i.pinimg.com/736x/e1/96/b9/e196b92e743611dce7b36291e8b4d899.jpg" alt="Women's Clothing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-8 left-8">
+                    <h2 class="font-serif text-3xl text-white mb-2 transform group-hover:-translate-y-2 transition-transform duration-300">Women's Clothing</h2>
+                    <span class="text-white text-sm uppercase tracking-widest border-b border-brand-gold pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Shop Now <i class="ph ph-arrow-right inline"></i></span>
+                </div>
+            </a>
+
+            <div class="grid grid-cols-2 grid-rows-2 gap-4 h-[600px] md:h-full">
+                <!-- Men -->
+                <a href="#featured-products-section" onclick="selectCollectionTab('men')" class="relative group overflow-hidden block rounded">
+                    <img src="https://i.pinimg.com/1200x/1a/e4/96/1ae4965ec76edf2897774a65558c6956.jpg" alt="Men's Clothing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h2 class="font-serif text-xl text-white">Men's Clothing</h2>
+                    </div>
+                </a>
+                <!-- Kids -->
+                <a href="#featured-products-section" onclick="selectCollectionTab('kids')" class="relative group overflow-hidden block rounded">
+                    <img src="https://i.pinimg.com/1200x/01/36/6e/01366eab17a0f21f8ab0843be217392e.jpg" alt="Kids Clothing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h2 class="font-serif text-xl text-white">Kids' Clothing</h2>
+                    </div>
+                </a>
+                <!-- Shoes -->
+                <a href="#featured-products-section" onclick="selectCollectionTab('shoes')" class="relative group overflow-hidden block col-span-2 rounded">
+                    <img src="https://i.pinimg.com/1200x/af/f6/65/aff665de8fb17290c16d8c4db0f7406a.jpg" alt="Shoes" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h2 class="font-serif text-2xl text-white">Great Shoes</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Showcase Grid -->
+    <section id="featured-products-section" class="py-20 max-w-[1440px] mx-auto px-4 md:px-8 border-t border-brand-border">
+        <div class="text-center mb-12 reveal-up">
+            <h2 class="font-serif text-4xl mb-6">Our Best Items</h2>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-12">
+                <button id="tab-women" onclick="setCollectionTab('women')" class="tab-btn text-brand-obsidian font-semibold border-b-2 border-brand-gold pb-1 text-sm md:text-base transition-all duration-300">Women's Collection</button>
+                <button id="tab-men" onclick="setCollectionTab('men')" class="tab-btn text-brand-slate font-medium hover:text-brand-obsidian transition-colors pb-1 text-sm md:text-base">Men's Collection</button>
+                <button id="tab-kids" onclick="setCollectionTab('kids')" class="tab-btn text-brand-slate font-medium hover:text-brand-obsidian transition-colors pb-1 text-sm md:text-base">Kids' Clothing</button>
+                <button id="tab-shoes" onclick="setCollectionTab('shoes')" class="tab-btn text-brand-slate font-medium hover:text-brand-obsidian transition-colors pb-1 text-sm md:text-base">Great Shoes</button>
+            </div>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 product-grid-transition">
+            <!-- Rendered dynamically by script JS -->
+        </div>
+        
+        <div class="text-center mt-12">
+            <button onclick="toggleLoadAllProducts()" id="load-more-btn" class="border border-brand-obsidian text-brand-obsidian py-3 px-10 hover:bg-brand-obsidian hover:text-white transition-colors">See All Items</button>
+        </div>
+    </section>
+
+    <!-- Core Brand Pillars -->
+    <section class="bg-brand-lightgray py-20 border-y border-brand-border">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div class="text-center flex flex-col items-center reveal-up">
+                    <i class="ph ph-diamond text-4xl text-brand-gold mb-4 font-light"></i>
+                    <h3 class="font-serif text-xl mb-2">Great Quality</h3>
+                    <p class="text-brand-slate text-sm">We use the best materials that are comfortable and last long.</p>
+                </div>
+                <div class="text-center flex flex-col items-center reveal-up" style="transition-delay: 100ms;">
+                    <i class="ph ph-truck text-4xl text-brand-gold mb-4 font-light"></i>
+                    <h3 class="font-serif text-xl mb-2">Fast Delivery</h3>
+                    <p class="text-brand-slate text-sm">Very fast delivery right to your door.</p>
+                </div>
+                <div class="text-center flex flex-col items-center reveal-up" style="transition-delay: 200ms;">
+                    <i class="ph ph-headset text-4xl text-brand-gold mb-4 font-light"></i>
+                    <h3 class="font-serif text-xl mb-2">Helpful Support</h3>
+                    <p class="text-brand-slate text-sm">We are here to help you anytime on the phone or WhatsApp.</p>
+                </div>
+                <div class="text-center flex flex-col items-center reveal-up" style="transition-delay: 300ms;">
+                    <i class="ph ph-leaf text-4xl text-brand-gold mb-4 font-light"></i>
+                    <h3 class="font-serif text-xl mb-2">Made with Care</h3>
+                    <p class="text-brand-slate text-sm">We work with local makers and care about the environment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Feedback Carousel -->
+    <section class="py-24 max-w-[1440px] mx-auto px-4 md:px-8 overflow-hidden">
+        <div class="flex justify-between items-end mb-12 reveal-up">
+            <h2 class="font-serif text-4xl">What People Say</h2>
+            <div class="hidden md:flex gap-4">
+                <button onclick="scrollTestimonials(-1)" class="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-brand-obsidian hover:text-white transition-colors"><i class="ph ph-arrow-left"></i></button>
+                <button onclick="scrollTestimonials(1)" class="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-brand-obsidian hover:text-white transition-colors"><i class="ph ph-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <div id="testimonials-container" class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory no-scrollbar scroll-smooth reveal-up" style="transition-delay: 200ms;">
+            <div class="min-w-[300px] md:min-w-[400px] bg-white border border-brand-border p-8 snap-start rounded">
+                <div class="flex text-brand-gold text-sm mb-4"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-lg italic mb-6 text-brand-charcoal">"I love how the clothes fit and feel. The quality is amazing, and Hawi Shop is the best!"</p>
+                <div class="flex items-center gap-2">
+                    <p class="font-bold font-serif text-lg">Lidia T.</p>
+                    <i class="ph-fill ph-check-circle text-green-600" title="Verified Buyer"></i>
+                </div>
+            </div>
+            <div class="min-w-[300px] md:min-w-[400px] bg-white border border-brand-border p-8 snap-start rounded">
+                <div class="flex text-brand-gold text-sm mb-4"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-lg italic mb-6 text-brand-charcoal">"The delivery was so fast. The jacket I bought fits me perfectly."</p>
+                <div class="flex items-center gap-2">
+                    <p class="font-bold font-serif text-lg">Dawit M.</p>
+                    <i class="ph-fill ph-check-circle text-green-600" title="Verified Buyer"></i>
+                </div>
+            </div>
+            <div class="min-w-[300px] md:min-w-[400px] bg-white border border-brand-border p-8 snap-start rounded">
+                <div class="flex text-brand-gold text-sm mb-4"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph ph-star"></i></div>
+                <p class="text-lg italic mb-6 text-brand-charcoal">"Beautiful clothes. The customer service on WhatsApp helped me pick the right size."</p>
+                <div class="flex items-center gap-2">
+                    <p class="font-bold font-serif text-lg">Helen B.</p>
+                    <i class="ph-fill ph-check-circle text-green-600" title="Verified Buyer"></i>
+                </div>
+            </div>
+            <div class="min-w-[300px] md:min-w-[400px] bg-white border border-brand-border p-8 snap-start rounded">
+                <div class="flex text-brand-gold text-sm mb-4"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="text-lg italic mb-6 text-brand-charcoal">"My favorite place for work clothes. The quality is always great. I highly recommend them."</p>
+                <div class="flex items-center gap-2">
+                    <p class="font-bold font-serif text-lg">Yared K.</p>
+                    <i class="ph-fill ph-check-circle text-green-600" title="Verified Buyer"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Storytelling -->
+    <section id="about-us-section" class="py-20 bg-white border-t border-brand-border">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-8 flex flex-col lg:flex-row items-center gap-16">
+            <div class="w-full lg:w-1/2 relative h-[500px] lg:h-[600px] reveal-up">
+                <img src="https://i.pinimg.com/736x/9e/48/f5/9e48f574418bc81ee835a65a7049e71a.jpg" alt="Design Studio" class="absolute top-0 left-0 w-3/4 h-4/5 object-cover z-10 shadow-lg rounded">
+                <img src="https://i.pinimg.com/736x/fb/52/d0/fb52d007dd630f00d97c8290d4141af8.jpg" alt="Storefront" class="absolute bottom-0 right-0 w-3/5 h-3/5 object-cover z-20 shadow-xl border-4 border-white rounded">
+            </div>
+            <div class="w-full lg:w-1/2 flex flex-col justify-center reveal-up" style="transition-delay: 200ms;">
+                <h2 class="font-serif text-4xl lg:text-5xl mb-6 leading-tight">Making Great Clothes Since 2020</h2>
+                <p class="text-brand-slate text-lg mb-4 leading-relaxed">
+                    Hawi Shop started with a simple goal: to bring great clothes to Oromia. We believe that looking good should be easy, with simple styles and good materials.
+                </p>
+                <p class="text-brand-slate text-lg mb-8 leading-relaxed">
+                    Every item we sell is chosen carefully to make you feel good. We work hard to give you the best modern fashion.
+                </p>
+                <div>
+                    <a href="#featured-products-section" class="inline-block border-b border-brand-obsidian text-brand-obsidian font-bold tracking-wide pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors uppercase text-sm">Read Our Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shoppable Gallery / Moodboard -->
+    <section class="py-24 max-w-[1440px] mx-auto px-4 md:px-8">
+        <h2 class="font-serif text-4xl text-center mb-12 reveal-up">See Our Styles</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 reveal-up" style="transition-delay: 200ms;">
+            <div class="col-span-2 row-span-2 relative group overflow-hidden bg-gray-200 aspect-square md:aspect-auto rounded">
+                <img src="https://i.pinimg.com/736x/dd/7e/80/dd7e80577de24e6bad8845521fbf5deb.jpg" alt="Style 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                <div class="absolute top-[40%] left-[60%] w-4 h-4 bg-white rounded-full hotspot cursor-pointer flex items-center justify-center group/tooltip">
+                    <div class="absolute bg-white text-black text-xs w-32 p-3 shadow-modal bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-20 rounded">
+                        <p class="font-bold font-serif mb-1">Modern Trench Coat</p>
+                        <span class="text-brand-gold underline font-medium" onclick="selectCollectionTab('women')">View Details</span>
+                    </div>
+                </div>
+            </div>
+            <div class="relative group overflow-hidden bg-gray-200 aspect-square rounded">
+                <img src="https://i.pinimg.com/736x/2e/61/f7/2e61f70d2cdad26d94da1e5c02b45e8c.jpg" alt="Style 2" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+            </div>
+            <div class="relative group overflow-hidden bg-gray-200 aspect-square rounded">
+                <img src="https://i.pinimg.com/736x/8f/37/c8/8f37c81bcc5eb62ce1b3244b3055c583.jpg" alt="Style 3" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+            </div>
+            <div class="col-span-2 relative group overflow-hidden bg-gray-200 aspect-[2/1] md:aspect-square rounded">
+                <img src="https://i.pinimg.com/736x/b4/c4/ac/b4c4ac5550894b76c58ac7a92abf3449.jpg" alt="Style 4" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                 <div class="absolute top-[50%] left-[30%] w-4 h-4 bg-white rounded-full hotspot hotspot cursor-pointer flex items-center justify-center group/tooltip">
+                    <div class="absolute bg-white text-black text-xs w-32 p-3 shadow-modal bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none z-20 rounded">
+                        <p class="font-bold font-serif mb-1">Tailored Coat</p>
+                        <span class="text-brand-gold underline font-medium" onclick="selectCollectionTab('women')">View Details</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-10">
+            <p class="text-brand-slate text-sm">Follow us on Instagram <a href="https://www.instagram.com/bereketgetahun7068/" target="_blank" class="text-brand-obsidian font-bold">@HawiShop</a></p>
+        </div>
+    </section>
+
+    <!-- Contact Info & Input Form -->
+    <section class="py-20 bg-brand-lightgray border-t border-brand-border">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16">
+            
+            <div class="w-full lg:w-1/2 reveal-up">
+                <h3 class="font-serif text-3xl mb-8">Contact Us</h3>
+                <form onsubmit="handleForm(event)" class="flex flex-col gap-6">
+                    <div>
+                        <input type="text" placeholder="Your Name" class="florentine-input" required>
+                    </div>
+                    <div>
+                        <input type="email" placeholder="Email Address" class="florentine-input" required>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Subject" class="florentine-input">
+                    </div>
+                    <div>
+                        <textarea placeholder="Your Message" class="florentine-input h-24 resize-none" required></textarea>
+                    </div>
+                    <button type="submit" class="bg-brand-obsidian text-white py-4 px-8 mt-4 font-medium hover:bg-gray-800 transition-colors w-full rounded">Send Message</button>
+                </form>
+            </div>
+
+            <div class="w-full lg:w-1/2 flex flex-col gap-8 reveal-up" style="transition-delay: 200ms;">
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <i class="ph ph-map-pin text-2xl text-brand-gold mb-2"></i>
+                        <h4 class="font-serif text-lg font-bold mb-1">Store Location</h4>
+                        <p class="text-brand-slate text-sm">Bedele, Senga Tera Area,<br>Oromia, Ethiopia.</p>
+                    </div>
+                    <div>
+                        <i class="ph ph-clock text-2xl text-brand-gold mb-2"></i>
+                        <h4 class="font-serif text-lg font-bold mb-1">Business Hours</h4>
+                        <p class="text-brand-slate text-sm">Mon - Sat: 2:00 AM - 8:00 PM<br>Sun: Closed</p>
+                    </div>
+                    <div>
+                        <i class="ph ph-envelope text-2xl text-brand-gold mb-2"></i>
+                        <h4 class="font-serif text-lg font-bold mb-1">Email</h4>
+                        <p class="text-brand-slate text-sm">bereketgetahun7068@gmail.com</p>
+                    </div>
+                    <div>
+                        <i class="ph ph-phone text-2xl text-brand-gold mb-2"></i>
+                        <h4 class="font-serif text-lg font-bold mb-1">Call / WhatsApp</h4>
+                        <p class="text-brand-slate text-sm">+251984839329</p>
+                    </div>
+                </div>
+
+                <div class="w-full h-64 bg-gray-300 relative overflow-hidden group rounded shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800" alt="Map Location" class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-brand-obsidian text-white px-4 py-2 text-sm flex items-center gap-2 shadow-lg rounded"><i class="ph-fill ph-map-pin"></i> Open in Map</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="py-24 max-w-3xl mx-auto px-4 md:px-8 reveal-up">
+        <h2 class="font-serif text-4xl text-center mb-12">Common Questions</h2>
+        
+        <div class="flex flex-col gap-2">
+            <details class="group border-b border-brand-border py-4" open>
+                <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-lg">
+                    How long does delivery take?
+                    <span class="transition group-open:rotate-180">
+                        <i class="ph ph-caret-down"></i>
+                    </span>
+                </summary>
+                <div class="text-brand-slate mt-4 text-sm leading-relaxed transition-all duration-300">
+                    We deliver very fast. If you order early, you get it the same day.
+                </div>
+            </details>
+            <details class="group border-b border-brand-border py-4">
+                <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-lg">
+                    Can I return or exchange items?
+                    <span class="transition group-open:rotate-180">
+                        <i class="ph ph-caret-down"></i>
+                    </span>
+                </summary>
+                <div class="text-brand-slate mt-4 text-sm leading-relaxed transition-all duration-300">
+                    Yes, you can return items within 7 days if they are not worn or washed. Changing sizes is free.
+                </div>
+            </details>
+            <details class="group border-b border-brand-border py-4">
+                <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-lg">
+                    How do I know my size?
+                    <span class="transition group-open:rotate-180">
+                        <i class="ph ph-caret-down"></i>
+                    </span>
+                </summary>
+                <div class="text-brand-slate mt-4 text-sm leading-relaxed transition-all duration-300">
+                    We have a size guide for every item. You can also ask us on WhatsApp for help.
+                </div>
+            </details>
+            <details class="group border-b border-brand-border py-4">
+                <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-lg">
+                    How can I pay?
+                    <span class="transition group-open:rotate-180">
+                        <i class="ph ph-caret-down"></i>
+                    </span>
+                </summary>
+                <div class="text-brand-slate mt-4 text-sm leading-relaxed transition-all duration-300">
+                    You can pay with bank transfers, Telebirr, CBE Birr, or cash when we deliver.
+                </div>
+            </details>
+        </div>
+        <p class="text-center mt-8 text-brand-slate text-sm">Still have questions? <a href="https://wa.me/251984839329" target="_blank" class="text-brand-obsidian font-bold underline">Chat with us</a>.</p>
+    </section>
+
+    <!-- Newsletter Subscription Card -->
+    <section class="py-12 px-4 md:px-8 max-w-[1440px] mx-auto mb-20 reveal-up">
+        <div class="bg-[#Fdfbf7] border border-[#f0e6d2] p-12 md:p-20 text-center max-w-5xl mx-auto shadow-sm rounded">
+            <h2 class="font-serif text-4xl mb-4">Join Us</h2>
+            <p class="text-brand-slate mb-8 max-w-md mx-auto">Sign up to see new clothes early and get 10% off your first order.</p>
+            
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col sm:flex-row max-w-lg mx-auto">
+                <input type="email" placeholder="Enter your email address" class="flex-1 px-6 py-4 border border-gray-300 outline-none focus:border-brand-obsidian transition-colors text-sm rounded-l sm:rounded-r-none" required>
+                <button type="submit" class="bg-brand-obsidian text-white px-8 py-4 font-medium hover:bg-gray-800 transition-colors sm:w-auto w-full mt-2 sm:mt-0 rounded-r sm:rounded-l-none">Subscribe</button>
+            </form>
+            <p class="text-[10px] text-brand-slate mt-4 uppercase tracking-widest">We respect your privacy. Unsubscribe at any time.</p>
+        </div>
+    </section>
+
+    <!-- Brand Footer -->
+    <footer class="bg-brand-obsidian text-white pt-20 pb-10 px-4 md:px-8">
+        <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <div>
+                <a href="#" class="font-serif text-3xl font-bold tracking-widest text-white mb-6 block">HAWI</a>
+                <p class="text-gray-400 text-sm mb-6 max-w-xs">Bringing the best clothes to your everyday life. Based in Oromia, Ethiopia.</p>
+                <div class="flex gap-4 text-xl">
+                    <a href="https://www.instagram.com/bereketgetahun7068/" target="_blank" class="hover:text-brand-gold transition-colors"><i class="ph ph-instagram-logo"></i></a>
+                    <a href="https://web.facebook.com/profile.php?id=61591946008347" target="_blank" class="hover:text-brand-gold transition-colors"><i class="ph ph-facebook-logo"></i></a>
+                    <a href="#" class="hover:text-brand-gold transition-colors"><i class="ph ph-tiktok-logo"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-serif text-xl mb-6">Quick Links</h4>
+                <ul class="flex flex-col gap-3 text-sm text-gray-400">
+                    <li><a href="#about-us-section" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#about-us-section" class="hover:text-white transition-colors">Our Blog</a></li>
+                    <li><a href="#category-section" class="hover:text-white transition-colors">Find Store</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Jobs</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-serif text-xl mb-6">Categories</h4>
+                <ul class="flex flex-col gap-3 text-sm text-gray-400">
+                    <li><a href="#featured-products-section" onclick="selectCollectionTab('women')" class="hover:text-white transition-colors">Women's Clothing</a></li>
+                    <li><a href="#featured-products-section" onclick="selectCollectionTab('men')" class="hover:text-white transition-colors">Men's Clothing</a></li>
+                    <li><a href="#featured-products-section" onclick="selectCollectionTab('kids')" class="hover:text-white transition-colors">Kids' Clothing</a></li>
+                    <li><a href="#featured-products-section" onclick="selectCollectionTab('shoes')" class="hover:text-white transition-colors">Great Shoes</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-serif text-xl mb-6">Help</h4>
+                <ul class="flex flex-col gap-3 text-sm text-gray-400">
+                    <li><a href="#about-us-section" class="hover:text-white transition-colors">Common Questions</a></li>
+                    <li><a href="#category-section" class="hover:text-white transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#featured-products-section" class="hover:text-white transition-colors">Size Guide</a></li>
+                    <li><a href="https://wa.me/251984839329" target="_blank" class="hover:text-white transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-[1440px] mx-auto border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+            <div>
+                &copy; 2026 Hawi Shop. All rights reserved. <span class="mx-2">|</span> <a href="#" class="hover:text-white">Privacy Policy</a> <span class="mx-2">|</span> <a href="#" class="hover:text-white">Rules</a>
+            </div>
+            <div class="flex gap-3 text-2xl text-gray-400">
+                <i class="ph ph-bank" title="Bank Transfer"></i>
+                <i class="ph ph-device-mobile" title="Mobile Money"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic product library with curated suggestion assets
+        const catalogData = {
+            women: [
+                { id: 'w1', name: 'Elegant Knitted Dress', price: 120.00, image: 'https://i.pinimg.com/1200x/db/ef/e3/dbefe3c28d1ee94f997ce174a2b805e1.jpg', tag: 'Best Seller' },
+                { id: 'w2', name: 'Casual Classic Shirt', price: 95.00, image: 'https://i.pinimg.com/1200x/9b/e7/e6/9be7e68e6b1b1d7c4f433fb8247b3195.jpg', tag: '' },
+                { id: 'w3', name: 'Modern Trench Coat', price: 185.00, image: 'https://i.pinimg.com/736x/b4/b3/aa/b4b3aa3449801258f70a6d274c278359.jpg', tag: 'New' },
+                { id: 'w4', name: 'Sophisticated Blazer', price: 145.00, image: 'https://i.pinimg.com/736x/5b/d9/f4/5bd9f4a6eeac486babe7a7557b049b91.jpg', tag: 'Popular' },
+                { id: 'w5', name: 'Classic Tailored Coat', price: 195.00, image: 'https://i.pinimg.com/736x/b4/c4/ac/b4c4ac5550894b76c58ac7a92abf3449.jpg', tag: '' },
+                { id: 'w6', name: 'Vintage Woolen Overcoat', price: 210.00, image: 'https://i.pinimg.com/736x/e1/96/b9/e196b92e743611dce7b36291e8b4d899.jpg', tag: 'Best Seller' },
+                { id: 'w7', name: 'Autumn Knit Set', price: 110.00, image: 'https://i.pinimg.com/736x/9e/48/f5/9e48f574418bc81ee835a65a7049e71a.jpg', tag: '' },
+                { id: 'w8', name: 'Modern Minimalist Suit', price: 240.00, image: 'https://i.pinimg.com/736x/08/be/08/08be089b78b51bae785a87c8b30887be.jpg', tag: 'Limited' },
+                { id: 'w9', name: 'Casual Wool Blend Sweater', price: 85.00, image: 'https://i.pinimg.com/736x/4d/f1/ba/4df1baf07bf15aa2d982639ff3facbc1.jpg', tag: '' },
+                { id: 'w10', name: 'Editorial High Collar Coat', price: 225.00, image: 'https://i.pinimg.com/736x/f9/93/b9/f993b97f59ef8b372eaf0ba1e6741583.jpg', tag: '' },
+                { id: 'w11', name: 'Chic Double Breasted Outerwear', price: 180.00, image: 'https://i.pinimg.com/736x/54/17/cb/5417cb6ff5a6a12e49c3d237e7e97d23.jpg', tag: 'New' },
+                { id: 'w12', name: 'Minimalist Wrap Dress', price: 135.00, image: 'https://i.pinimg.com/736x/41/00/2f/41002fbd9255354fd792961c6df25f66.jpg', tag: '' },
+                { id: 'w13', name: 'Urban Casual Suit', price: 160.00, image: 'https://i.pinimg.com/1200x/bc/af/76/bcaf7616fd12f5e20437cfc8a51d5b0d.jpg', tag: '' },
+                { id: 'w14', name: 'Elegant Evening Shawl Dress', price: 250.00, image: 'https://i.pinimg.com/736x/b5/99/db/b599db4dd5b9045162ca25820d989ccd.jpg', tag: '' },
+                { id: 'w15', name: 'Classic Black T-Shirt', price: 140.00, image: 'https://i.pinimg.com/736x/d5/af/91/d5af91a637df6a18c666121086c8b52f.jpg', tag: 'New' },
+                { id: 'w16', name: 'Sleek Aesthetic Trench', price: 205.00, image: 'https://i.pinimg.com/736x/dd/7e/80/dd7e80577de24e6bad8845521fbf5deb.jpg', tag: '' },
+                { id: 'w17', name: 'High-End Casual Jumper', price: 90.00, image: 'https://i.pinimg.com/736x/3a/f2/21/3af2215e78c9005dbcac4d4074abddc3.jpg', tag: '' }
+            ],
+            men: [
+                { id: 'm1', name: 'Tailored Smart Jacket', price: 155.00, image: 'https://i.pinimg.com/1200x/1a/e4/96/1ae4965ec76edf2897774a65558c6956.jpg', tag: 'New' },
+                { id: 'm2', name: 'Minimalist Wool Blazer', price: 190.00, image: 'https://i.pinimg.com/736x/2e/61/f7/2e61f70d2cdad26d94da1e5c02b45e8c.jpg', tag: 'Popular' },
+                { id: 'm3', name: 'Urban Textured Overcoat', price: 210.00, image: 'https://i.pinimg.com/1200x/b0/ff/7f/b0ff7f721ee8ed2ac2ef9dbc914d3c64.jpg', tag: 'Best Seller' },
+                { id: 'm4', name: 'Classic Street Crewneck', price: 75.00, image: 'https://i.pinimg.com/1200x/fe/c2/9a/fec29a76138b8629470dbaec4b10145c.jpg', tag: '' },
+                { id: 'm5', name: 'Luxe Suede Bomber', price: 165.00, image: 'https://i.pinimg.com/736x/b7/29/ac/b729ac23942129f0ba0103de38ba93c4.jpg', tag: '' },
+                { id: 'm6', name: 'Relaxed Fit Trench', price: 180.00, image: 'https://i.pinimg.com/1200x/d6/0a/80/d60a802ae8ec3c1ef57066936f918abf.jpg', tag: 'Hot' },
+                { id: 'm7', name: 'Premium Oversized Hoodie', price: 85.00, image: 'https://i.pinimg.com/1200x/f2/59/6a/f2596a34e39f269a9fda39b8b2db19b0.jpg', tag: '' },
+                { id: 'm8', name: 'Casual Knit Polo', price: 70.00, image: 'https://i.pinimg.com/736x/f6/3f/35/f63f355711600fa90f227a3120f8b351.jpg', tag: '' },
+                { id: 'm9', name: 'Textured Winter Cardigan', price: 115.00, image: 'https://i.pinimg.com/736x/91/2a/12/912a12c229cb24ee3e27626a3d57d0eb.jpg', tag: '' },
+                { id: 'm10', name: 'Structured Hybrid Jacket', price: 145.00, image: 'https://i.pinimg.com/1200x/2a/73/1a/2a731a132b2d18d1d0b83157ce96e6ae.jpg', tag: '' },
+                { id: 'm11', name: 'Urban Active Windbreaker', price: 130.00, image: 'https://i.pinimg.com/1200x/26/45/49/264549f9c6d4f95214089ffcad2d6320.jpg', tag: 'New' }
+            ],
+            kids: [
+                { id: 'k1', name: 'Playful Warm Knit Sweater', price: 55.00, image: 'https://i.pinimg.com/1200x/01/36/6e/01366eab17a0f21f8ab0843be217392e.jpg', tag: 'Best Seller' },
+                { id: 'k2', name: 'Cute Casual Toddler Set', price: 48.00, image: 'https://img.ltwebstatic.com/images3_pi/2025/02/17/b9/17397600484196ede3ded9af7f8f0f223a61cee693_thumbnail_420x.avif', tag: 'New' },
+                { id: 'k3', name: 'Retro Double-Breasted Coat', price: 75.00, image: 'https://i.pinimg.com/1200x/56/48/19/564819c595cefc45cacc0b9d2d6c2a63.jpg', tag: 'Trending' },
+                { id: 'k4', name: 'Soft Velvet Winter Suit', price: 65.00, image: 'https://i.pinimg.com/736x/8f/37/c8/8f37c81bcc5eb62ce1b3244b3055c583.jpg', tag: '' },
+                { id: 'k5', name: 'Cute Embroidered Jacket', price: 58.00, image: 'https://i.pinimg.com/736x/36/55/dd/3655ddad776ef0bd4cd178e993471e8f.jpg', tag: '' },
+                { id: 'k6', name: 'Cozy Woolen Hooded Vest', price: 52.00, image: 'https://i.pinimg.com/1200x/21/12/92/211292112d190b6ee01b50deeda5eec3.jpg', tag: '' },
+                { id: 'k7', name: 'Autumn Casual Two-Piece', price: 45.00, image: 'https://i.pinimg.com/1200x/3b/35/bf/3b35bf14e0e3f18088117a78cfc8700a.jpg', tag: '' },
+                { id: 'k8', name: 'Linen Spring Dress', price: 50.00, image: 'https://i.pinimg.com/1200x/29/64/f4/2964f47978b17a21e405a4baa5ad356d.jpg', tag: '' },
+                { id: 'k9', name: 'Classic Corduroy Overall Set', price: 62.00, image: 'https://i.pinimg.com/736x/28/0d/20/280d209375c8111f22b9de2d03b376e3.jpg', tag: '' },
+                { id: 'k10', name: 'Teddy Bear Fleece Zip-Up', price: 54.00, image: 'https://i.pinimg.com/1200x/a1/70/e2/a170e2590806dec633f9d2408a0739ec.jpg', tag: 'Popular' },
+                { id: 'k11', name: 'Chic Urban Kids Trench', price: 80.00, image: 'https://i.pinimg.com/1200x/05/66/21/0566216b42db83e0027774c1c8ce69c5.jpg', tag: 'New' }
+            ],
+            shoes: [
+                { id: 's1', name: 'Minimalist Leather Oxford', price: 115.00, image: 'https://i.pinimg.com/1200x/af/f6/65/aff665de8fb17290c16d8c4db0f7406a.jpg', tag: 'Best Seller' },
+                { id: 's2', name: 'Premium Everyday Sneaker', price: 90.00, image: 'https://i.pinimg.com/736x/fb/52/d0/fb52d007dd630f00d97c8290d4141af8.jpg', tag: 'New' },
+                { id: 's3', name: 'Classic Retro Suede Runner', price: 98.00, image: 'https://i.pinimg.com/736x/3b/b1/86/3bb18659a2dad998536894422d547958.jpg', tag: 'Trending' },
+                { id: 's4', name: 'Urban High-Top Trainer', price: 125.00, image: 'https://i.pinimg.com/736x/39/7b/a2/397ba23768cf7f9177cec1c4aa47226e.jpg', tag: '' },
+                { id: 's5', name: 'Luxury Chunky Sole Sneaker', price: 140.00, image: 'https://i.pinimg.com/736x/00/c7/32/00c73292246420a3210268cb3d09668b.jpg', tag: '' },
+                { id: 's6', name: 'Premium Leather Boots', price: 165.00, image: 'https://i.pinimg.com/1200x/89/c2/c2/89c2c28ab4a5dbdc350e7abcdf8fceee.jpg', tag: '' },
+                { id: 's7', name: 'Vintage Casual Loafer', price: 110.00, image: 'https://i.pinimg.com/736x/a3/89/1a/a3891a39373bb4a18e946ed85ca939c5.jpg', tag: '' },
+                { id: 's8', name: 'Retro Cream Jogger', price: 95.00, image: 'https://i.pinimg.com/736x/b1/08/93/b108934dcb0a409c8bcb3bac96d46498.jpg', tag: '' },
+                { id: 's9', name: 'Minimalist Comfort Trainer', price: 88.00, image: 'https://i.pinimg.com/736x/6b/50/84/6b50846267c9d078b81fc561d9c17675.jpg', tag: '' },
+                { id: 's10', name: 'Suede Everyday Walker', price: 105.00, image: 'https://i.pinimg.com/1200x/ee/94/b7/ee94b7121af74d3c273e684d96b78c23.jpg', tag: '' },
+                { id: 's11', name: 'Premium Court Sneaker', price: 110.00, image: 'https://i.pinimg.com/1200x/5b/25/d8/5b25d89516500eaf5f32eb6b5a732053.jpg', tag: 'New' },
+                { id: 's12', name: 'Chunky Athletic Sneaker', price: 130.00, image: 'https://i.pinimg.com/736x/e2/ee/07/e2ee073667e434dbb0c35b5b1be8e500.jpg', tag: '' },
+                { id: 's13', name: 'Classic Leather Trainer', price: 95.00, image: 'https://i.pinimg.com/1200x/3f/52/dd/3f52dd71a8403e09144cca06d315ae87.jpg', tag: '' }
+            ]
+        };
+
+        // Cart State management
+        let currentTab = 'women';
+        let showAllItems = false;
+        let cart = [
+            {
+                id: 'w1',
+                name: 'Elegant Knitted Dress',
+                price: 120.00,
+                image: 'https://i.pinimg.com/1200x/db/ef/e3/dbefe3c28d1ee94f997ce174a2b805e1.jpg',
+                quantity: 1
+            }
+        ];
+
+        window.onload = function() {
+            setCollectionTab('women');
+            updateCartUI();
+        };
+
+        // Render products based on currently selected tab and display filters
+        function setCollectionTab(tabKey) {
+            currentTab = tabKey;
+            showAllItems = false;
+            
+            // Update Tab UI States
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-brand-obsidian', 'font-semibold', 'border-b-2', 'border-brand-gold');
+                btn.classList.add('text-brand-slate', 'font-medium');
+            });
+            
+            const activeBtn = document.getElementById(`tab-${tabKey}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-brand-slate', 'font-medium');
+                activeBtn.classList.add('text-brand-obsidian', 'font-semibold', 'border-b-2', 'border-brand-gold');
+            }
+
+            // Set load button text
+            const loadBtn = document.getElementById('load-more-btn');
+            loadBtn.innerText = "See All Items";
+
+            renderProductGrid();
+        }
+
+        // Handles department card and navigation bar clicks
+        function selectCollectionTab(tabKey) {
+            setCollectionTab(tabKey);
+            const target = document.getElementById('featured-products-section');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Render products dynamically without displaying prices
+        function renderProductGrid() {
+            const grid = document.getElementById('product-grid');
+            
+            // Subtle transition exit
+            grid.style.opacity = '0';
+            grid.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                const list = catalogData[currentTab] || [];
+                let itemsToDisplay;
+
+                if (showAllItems) {
+                    itemsToDisplay = list;
+                } else {
+                    // Filter out any items with tag 'New' or 'Popular' from initial display
+                    const filteredList = list.filter(item => item.tag !== 'New' && item.tag !== 'Popular');
+                    itemsToDisplay = filteredList.slice(0, 4);
+                }
+                
+                grid.innerHTML = '';
+                
+                itemsToDisplay.forEach((prod, index) => {
+                    const badgeHTML = prod.tag ? 
+                        `<div class="absolute top-3 left-3 bg-brand-obsidian text-white text-[10px] tracking-widest px-2 py-1 uppercase z-10 rounded">${prod.tag}</div>` : '';
+
+                    grid.innerHTML += `
+                        <div class="group cursor-pointer reveal-up active" style="transition-delay: ${index * 100}ms">
+                            <div class="relative bg-brand-lightgray aspect-[4/5] overflow-hidden mb-4 rounded">
+                                ${badgeHTML}
+                                <img src="${prod.image}" alt="${prod.name}" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+                                
+                                <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <button onclick="addToCart('${prod.id}', '${prod.name}', ${prod.price}, '${prod.image}')" class="bg-white rounded-full p-4 shadow-modal transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:text-brand-gold text-lg flex items-center gap-2 font-medium text-xs tracking-wider uppercase" title="Add to Cart">
+                                        <i class="ph-bold ph-shopping-cart-simple"></i> Add To Cart
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-xs text-brand-slate uppercase tracking-widest mb-1">${currentTab}</p>
+                            <h3 class="font-serif text-lg text-brand-obsidian mb-1 truncate">${prod.name}</h3>
+                            <div class="flex text-brand-gold text-sm mb-1">
+                                <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Subtle entrance trigger
+                grid.style.opacity = '1';
+                grid.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        // Toggles displaying of all items inside current catalog category
+        function toggleLoadAllProducts() {
+            showAllItems = !showAllItems;
+            const loadBtn = document.getElementById('load-more-btn');
+            
+            if (showAllItems) {
+                loadBtn.innerText = "Show Less";
+            } else {
+                loadBtn.innerText = "See All Items";
+                const target = document.getElementById('featured-products-section');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            renderProductGrid();
+        }
+
+        // Add to Cart handler
+        function addToCart(id, name, price, image) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+            updateCartUI();
+            toggleCart(true); // Auto reveal cart drawer
+        }
+
+        function changeCartQuantity(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+                updateCartUI();
+            }
+        }
+
+        // Render Cart items cleanly without showing any price points
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const totalCount = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+
+            // Badges
+            document.getElementById('cart-badge-count').innerText = totalCount;
+            document.getElementById('cart-count').innerText = totalCount;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-64 text-brand-slate gap-4">
+                        <i class="ph ph-shopping-bag-open text-5xl"></i>
+                        <p class="font-medium text-sm">Your cart is currently empty.</p>
+                        <button onclick="toggleCart(false)" class="text-xs uppercase tracking-wider underline text-brand-obsidian font-bold">Start Shopping</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            cart.forEach(item => {
+                container.innerHTML += `
+                    <div class="flex gap-4 border-b border-brand-border pb-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-24 object-cover rounded">
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-serif text-base leading-tight">${item.name}</h3>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <div class="flex items-center border border-brand-border rounded overflow-hidden">
+                                    <button onclick="changeCartQuantity('${item.id}', -1)" class="px-2 py-1 text-xs hover:bg-gray-100 font-bold">-</button>
+                                    <span class="px-3 text-xs font-semibold">${item.quantity}</span>
+                                    <button onclick="changeCartQuantity('${item.id}', 1)" class="px-2 py-1 text-xs hover:bg-gray-100 font-bold">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Toggle Cart Drawer logic without clicking anywhere else on page triggers
+        function toggleCart(forceState = null) {
+            const drawer = document.getElementById('cart-drawer');
+            const panel = document.getElementById('cart-panel');
+            const backdrop = document.getElementById('cart-backdrop');
+            
+            const isOpen = !drawer.classList.contains('opacity-0');
+            const shouldOpen = forceState !== null ? forceState : !isOpen;
+
+            if (shouldOpen) {
+                // Open Drawer
+                drawer.classList.remove('opacity-0', 'pointer-events-none');
+                drawer.classList.add('opacity-100');
+                backdrop.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    panel.classList.remove('translate-x-full');
+                    panel.classList.add('translate-x-0');
+                }, 10);
+                
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Close Drawer
+                panel.classList.remove('translate-x-0');
+                panel.classList.add('translate-x-full');
+                backdrop.classList.add('hidden');
+                
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('opacity-0', 'pointer-events-none');
+                    document.body.style.overflow = 'auto';
+                }, 500);
+            }
+        }
+
+        // Toggle Mobile Menu Drawer
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobile-menu-drawer');
+            const panel = document.getElementById('mobile-menu-panel');
+            const isOpen = !drawer.classList.contains('opacity-0');
+
+            if (!isOpen) {
+                drawer.classList.remove('opacity-0', 'pointer-events-none');
+                drawer.classList.add('opacity-100');
+                setTimeout(() => {
+                    panel.classList.remove('-translate-x-full');
+                    panel.classList.add('translate-x-0');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            } else {
+                panel.classList.remove('translate-x-0');
+                panel.classList.add('-translate-x-full');
+                setTimeout(() => {
+                    drawer.classList.remove('opacity-100');
+                    drawer.classList.add('opacity-0', 'pointer-events-none');
+                    document.body.style.overflow = 'auto';
+                }, 500);
+            }
+        }
+
+        // Testimonials scrolling
+        function scrollTestimonials(direction) {
+            const container = document.getElementById('testimonials-container');
+            const scrollAmount = 320;
+            container.scrollBy({
+                left: scrollAmount * direction,
+                behavior: 'smooth'
+            });
+        }
+
+        // Form feedback handlers (Using style transition states)
+        function handleForm(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'Sending...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerText = 'Message Sent Successfully!';
+                btn.classList.replace('bg-brand-obsidian', 'bg-green-700');
+                e.target.reset();
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.replace('bg-green-700', 'bg-brand-obsidian');
+                    btn.disabled = false;
+                }, 3000);
+            }, 1000);
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerText = 'Subscribed!';
+            btn.classList.replace('bg-brand-obsidian', 'bg-brand-gold');
+            e.target.querySelector('input').value = '';
+        }
+
+        // Redirect directly to telegram account @Ch1way
+        function handleCheckout() {
+            window.open('https://t.me/Ch1way', '_blank');
+        }
+
+        // Sticky Header control
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+
+        // Scroll reveal controller
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealElements = document.querySelectorAll('.reveal-up');
+            
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        });
+
+        // Accordion auto close sibling controllers
+        const detailsElements = document.querySelectorAll("details");
+        detailsElements.forEach((targetDetail) => {
+            targetDetail.addEventListener("click", () => {
+                detailsElements.forEach((detail) => {
+                    if (detail !== targetDetail) {
+                        detail.removeAttribute("open");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
